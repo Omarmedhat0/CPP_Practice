@@ -1,53 +1,92 @@
-#include <iostream>
-class Bank_Account
-{
-private:
-std::string Holder_Name ;
-std::string Account_Type ;
-int Account_Number ;
-int Account_Balance ;
-public:
-Bank_Account(std::string Name,std::string AcoountType , int AccountNumber , int AccountBalance 
- ) : Holder_Name(Name), Account_Type(AcoountType), Account_Number(AccountNumber), Account_Balance(AccountBalance) {}
-void Withdraw (int number)
-{
-    Account_Balance -= number ;
-}
-void Deposit (int number)
-{
-    Account_Balance += number ;
-}
-int GetAccountNumber(void)
-{
-    return Account_Number ;
-}
-std::string GetHolderName(void)
-{
-    return Holder_Name ;
-}
-int GetAccountBalance(void)
-{
-    return Account_Balance ;
-}
-std::string GetAccountType(void)
-{
-    return Account_Type ;
-}
-void DisplayAccountInfo(void)
-{
-    std::cout << "Account Holder Name : " << Holder_Name << std::endl ;
-    std::cout << "Account Type : " << Account_Type << std::endl ;
-    std::cout << "Account Number : " << Account_Number << std::endl ;
-    std::cout << "Account Balance : " << Account_Balance << std::endl ;
-}
-};
+#include "Bank.hpp"
+#include <limits> // Include the <limits> header
+
 int main()
 {
-Bank_Account Account1("John", "Savings", 1001, 10000) ;
-Account1.DisplayAccountInfo() ;
-std::cout << "Account Holder Name : " << Account1.GetHolderName() << std::endl ;
-std::cout << "Account Type : " << Account1.GetAccountType() << std::endl ;
-std::cout << "Account Number : " << Account1.GetAccountNumber() << std::endl ;
-std::cout << "Account Balance : " << Account1.GetAccountBalance() << std::endl ;
-return 0 ;
+
+    Bank bank;
+
+    std::string name, type;
+    int number, balance, amount;
+    char choice;
+    Bank_Account Template_Account(name, type, number, balance);; // Move the declaration here
+
+    do
+    {
+        std::cout << "Menu: "<<std::endl;
+        std::cout << "1. Create Account" << std::endl;
+        std::cout << "2. Deposit Funds" << std::endl;
+        std::cout << "3. Withdraw Funds" << std::endl;
+        std::cout << "4. Total Balance" << std::endl;
+        std::cout << "5. Display all accounts" << std::endl;
+        std::cout << "6. Exit" << std::endl;
+        std::cin >> choice;
+
+        switch (choice)
+        {
+        case '1':
+            std::cout << "Enter account holder name: ";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
+            std::getline(std::cin, name);
+            std::cout << "Enter account type: ";
+            std::getline(std::cin, type);
+            std::cout << "Enter account number: ";
+            std::cin >> number;
+            std::cout << "Enter account balance: ";
+            std::cin >> balance;
+           Template_Account.SetBankAccountParameters(name, type, number, balance);
+            bank.AddAccount(Template_Account);
+            std::cout << "Succeeded Process" << std::endl;
+            std::cout << "Do you want to add another account? (y/n): ";
+            std::cin >> choice;
+            break;
+        case '2':
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
+            std::cout << "Enter account number: ";
+            std::cin >> number;
+            std::cout << "Enter amount to deposit: ";
+            std::cin >> amount;
+            bank.DepositFunds(number, amount);
+            std::cout << "Succeeded Process" << std::endl;
+            std::cout << "Do you want to add another account? (y/n): ";
+            std::cin >> choice;
+            break;
+        case '3':
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
+            std::cout << "Enter account number: ";
+            std::cin >> number;
+            std::cout << "Enter amount to withdraw: ";
+            std::cin >> amount;
+            bank.WithdrawFunds(number, amount);
+            std::cout << "Succeeded Process" << std::endl;
+            std::cout << "Do you want to add another account? (y/n): ";
+            std::cin >> choice;
+            break;
+        case '4':
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
+            std::cout << "Total Balance " << bank.GetTotalBalance() << std::endl;
+            std::cout << "Succeeded Process" << std::endl;
+            std::cout << "Do you want to add another account? (y/n): ";
+            std::cin >> choice;
+            break;
+        case '5':
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
+            std::cout << "Accounts details :" << std::endl;
+            bank.DisplayAllAccounts();
+            std::cout << "Succeeded Process" << std::endl;
+            std::cout << "Do you want to add another account? (y/n): ";
+            std::cin >> choice;
+            break;
+        case '6':
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
+            std::cout << "Goodbye!" << std::endl;
+            choice = 'n' ;
+            break;
+        default:    
+            std::cout << "Invalid choice. Please try again." << std::endl;
+            break;
+        }
+    } while (choice == 'y' || choice == 'Y');
+
+    return 0;
 }
