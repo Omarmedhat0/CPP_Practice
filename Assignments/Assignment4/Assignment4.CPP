@@ -1,5 +1,6 @@
 #include "Bank.hpp"
 #include <limits> // Include the <limits> header
+#include <cstdlib> // For system("CLS") on Windows
 
 int main()
 {
@@ -21,7 +22,7 @@ int main()
         std::cout << "5. Display all accounts" << std::endl;
         std::cout << "6. Exit" << std::endl;
         std::cin >> choice;
-
+        system("clear"); // For Unix/Linux
         switch (choice)
         {
         case '1':
@@ -39,6 +40,7 @@ int main()
             std::cout << "Succeeded Process" << std::endl;
             std::cout << "Do you want to add another account? (y/n): ";
             std::cin >> choice;
+            system("clear"); // For Unix/Linux            
             break;
         case '2':
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
@@ -50,6 +52,7 @@ int main()
             std::cout << "Succeeded Process" << std::endl;
             std::cout << "Do you want to add another account? (y/n): ";
             std::cin >> choice;
+            system("clear"); // For Unix/Linux            
             break;
         case '3':
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
@@ -61,6 +64,7 @@ int main()
             std::cout << "Succeeded Process" << std::endl;
             std::cout << "Do you want to add another account? (y/n): ";
             std::cin >> choice;
+            system("clear"); // For Unix/Linux            
             break;
         case '4':
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
@@ -68,6 +72,7 @@ int main()
             std::cout << "Succeeded Process" << std::endl;
             std::cout << "Do you want to add another account? (y/n): ";
             std::cin >> choice;
+            system("clear"); // For Unix/Linux            
             break;
         case '5':
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
@@ -76,11 +81,13 @@ int main()
             std::cout << "Succeeded Process" << std::endl;
             std::cout << "Do you want to add another account? (y/n): ";
             std::cin >> choice;
+            system("clear"); // For Unix/Linux            
             break;
         case '6':
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
             std::cout << "Goodbye!" << std::endl;
             choice = 'n' ;
+            system("clear"); // For Unix/Linux            
             break;
         default:    
             std::cout << "Invalid choice. Please try again." << std::endl;
